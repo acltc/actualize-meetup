@@ -1,0 +1,11 @@
+<%= @contact.full_name %> has updated their record, please check that there are not duplicates before contacting.
+===============================================
+
+Name: <%= @contact.full_name %>
+Phone: <%= @contact.phone %>
+Email: <%= @contact.email %>
+Slides: <%= @contact.slides ? "Send" : "Don't Send" %>
+Wants to know about: <%= @contact.interested_in%>
+Created On: <%= @contact.created_at.strftime("%b %e, %l:%M %p") %>
+
+Thank you

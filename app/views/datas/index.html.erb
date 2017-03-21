@@ -1,0 +1,62 @@
+<header>
+  <a href="/" data-confirm="Do you want to clear the form?">
+    <%= image_tag "actualize_vertical_logo.png", width: "100%" %>
+  </a>
+</header>
+
+<div id="main">
+  <% flash.each do |name, message| %>
+    <div class="alert alert-<%= name %> alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <%= message %>
+    </div>
+  <% end %>
+
+  <div class="col-xs-6">
+    <% if @errors %>
+      <% @errors.each do |message| %>
+        <div class="alert alert-danger" role="alert"><%= message %></div>
+      <% end %>
+    <% end %>
+
+    <%= form_tag "/contacts", method: :post do %>
+      <div class="form-group">
+        <%= label_tag :first_name %>
+        <%= text_field_tag :first_name, @contact.first_name, class: "form-control", placeholder: "First Name" %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :last_name %>
+        <%= text_field_tag :last_name, @contact.last_name, class: "form-control", placeholder: "Last Name" %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :email %>
+        <%= text_field_tag :email, @contact.email, class: "form-control", placeholder: "Email" %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :phone %>
+        <%= text_field_tag :phone, @contact.phone, class: "form-control", placeholder: "Phone" %>
+      </div>
+      <br>
+      <div class="checkbox">
+        <label>
+          <%= check_box_tag :slides, true, true %> Send Me Slides
+        </label>
+      </div>
+      <div class="form-group">
+        <%= label_tag :interested_in, "Tell us what you want to know more about" %>
+        <%= text_area_tag :interested_in, @contact.interested_in, class: "form-control", placeholder: "Anything about Actualize or Coding..." %>
+      </div>
+      <%= submit_tag "Give Me Info", class: "btn btn-default", id:"actualize-teal" %>
+    <% end %>
+  </div>
+  <div class="col-xs-6 row">
+    <% size_index = 0 %>
+    <% @contacts.each_with_index do |contact, index| %>
+      <<%= @col_sizes[size_index][1] %> class="text-center col-xs-<%= @col_sizes[size_index][0] %>" style="color: <%= @colors[-(index + 1)] %>;"><%= contact.full_name %></<%= @col_sizes[size_index][1] %>>
+      <% size_index < @col_sizes.length - 1 ? size_index += 1 : size_index = 0 %>
+    <% end %>
+  </div>
+</div>
+<footer>
+  <h6 class="text-center">tell instructor if you need to change your info</h6>
+</footer>

@@ -1,0 +1,54 @@
+<% flash.each do |name, message| %>
+  <div class="alert alert-<%= name %> alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <%= message %>
+  </div>
+<% end %>
+
+<%= link_to "Logout", "/logout", class: "btn btn-danger" %>
+
+<h1>Hi Rena</h1>
+<p>Here are your contacts.</p>
+<ul>
+  <li>Click on name to edit.</li>
+  <li>Use Search bar to narrow down contacts</li>
+</ul>
+<br>
+<div>
+  <div class="row">
+  <div class="col-lg-6">
+    <%= form_tag '/admin', method: :get do %>
+      <div class="input-group">
+        <%= text_field_tag :search_term, nil, class: "form-control", placeholder: "Search for..." %>
+        <span class="input-group-btn">
+          <%= submit_tag "Search", class: "btn btn-info" %>
+        </span>
+      </div><!-- /input-group -->
+    <% end %>
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+</div>
+<br>
+
+<table class="text-center">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Slides</th>
+    <th>Interested</th>
+  </tr>
+<% @contacts.each do |contact| %>
+    <tr>
+      <td>
+        <a href="/contacts/<%= contact.id %>/edit">
+          <%= contact.full_name %>
+        </a>
+      </td>
+      <td><%= contact.email %></td>
+      <td><%= contact.phone %></td>
+      <td><%= "✓" if contact.slides %></td>
+      <td><%= contact.interested_in %></td>
+    </tr>
+<% end %>
+</table>

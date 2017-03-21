@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Contact our new friend, <%= @contact.full_name %></h1>
+    <br>
+    <p>Name: <%= @contact.full_name %></p>
+    <p>Phone: <%= @contact.phone %></p>
+    <p>Email: <%= @contact.email %></p>
+    <p>Slides: <%= @contact.slides ? "Send" : "Don't Send" %></p>
+    <p>Wants to know about: <%= @contact.interested_in%></p>
+    <p>Created On: <%= @contact.created_at.strftime("%b %e, %l:%M %p") %></p>
+    <br>
+    <p>Thank you</p>
+  </body>
+</html>
