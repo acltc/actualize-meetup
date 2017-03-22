@@ -1,0 +1,9 @@
+<%= link_to "Back to Contacts", "/admin", class: "btn btn-warning" %>
+
+<h1>Events by Date</h1>
+<p>Click on an event date to download spreadsheet for that event.</p>
+<br>
+
+<% @events.each do |event| %>
+  <li><a href="/events/<%= event.id %>.csv"><%= event.file_name %></a></li>
+<% end %>

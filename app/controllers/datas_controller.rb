@@ -1,5 +1,5 @@
 class DatasController < ApplicationController
-  before_action :authenticate_admin!, only: [:admin, :update]
+  before_action :authenticate_admin!, except: [:index, :create]
   before_action :authenticate_user!, only: [:index, :create]
 
   COLORS = ["AliceBlue",  "AntiqueWhite","Aqua","Aquamarine","Bisque","Black", "Blue","BlueViolet","Brown", "BurlyWood", "CadetBlue", "Chartreuse","Chocolate", "Coral", "CornflowerBlue","Cornsilk","Crimson", "Cyan","DarkBlue","DarkCyan","DarkGoldenRod", "DarkGrey","DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen","DarkOrange","DarkOrchid","DarkRed", "DarkSalmon","DarkSeaGreen","DarkSlateBlue", "DarkTurquoise", "DarkViolet","DeepPink","DeepSkyBlue", "DimGray", "DodgerBlue","FireBrick", "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite","Gold","GoldenRod", "Gray","Green", "GreenYellow", "HoneyDew","HotPink", "IndianRed", "Indigo",  "Ivory", "Khaki", "Lavender","LavenderBlush", "LawnGreen", "LemonChiffon","LightBlue", "LightCoral","LightCyan", "LightGoldenRodYellow","LightGreen","LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue","LightSlateGrey","LightSteelBlue","LightYellow", "Lime","LimeGreen", "Linen", "Magenta", "Maroon","MediumAquaMarine","MediumBlue","MediumOrchid","MediumPurple","MediumSeaGreen","MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MintCream", "MistyRose", "OldLace", "Olive", "OliveDrab", "Orange","OrangeRed", "Orchid","PaleGoldenRod", "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip","PeachPuff", "Peru","Pink","Plum","PowderBlue","Purple","RebeccaPurple", "Red", "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue", "SlateBlue", "SlateGrey", "SpringGreen", "SteelBlue", "Tan", "Teal","Thistle", "Tomato","Turquoise", "Violet","Wheat", "WhiteSmoke","Yellow","YellowGreen"]
@@ -66,6 +66,17 @@ class DatasController < ApplicationController
     else
       @errors = @contact.errors.full_messages
       render :edit
+    end
+  end
+
+  def events
+    @events = Event.where("id > ?", 1)
+  end
+
+  def event_csv
+    @event = Event.find(params[:id])
+    respond_to do |format|
+      format.csv { send_data @event.to_csv, filename: "#{@event.file_name}.csv" }
     end
   end
 end
