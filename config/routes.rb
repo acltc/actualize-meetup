@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get '/' => 'datas#index'
+  get '/contacts' => 'datas#index'
   post '/contacts' => 'datas#create'
 
   get "/login" => "sessions#new"
