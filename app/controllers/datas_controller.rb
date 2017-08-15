@@ -26,7 +26,7 @@ class DatasController < ApplicationController
                           )
 
     if @contact.save
-      ContactMailer.contact_me_email(@contact).deliver_now
+      # ContactMailer.contact_me_email(@contact).deliver_now
       flash[:success] = "Thank you, You'll recieve info shortly."
       redirect_to "/"
     else
@@ -60,7 +60,7 @@ class DatasController < ApplicationController
                               )
 
     if @contact.save
-      ContactMailer.contact_update_email(@contact).deliver_now
+      # ContactMailer.contact_update_email(@contact).deliver_now
       flash[:success] = "Updated #{@contact.full_name}"
       redirect_to "/admin"
     else
